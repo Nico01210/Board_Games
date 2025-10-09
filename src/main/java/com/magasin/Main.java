@@ -1,42 +1,47 @@
 package com.magasin;
 
+import com.magasin.Core.Game;
+import com.magasin.Core.Player;
+import com.magasin.ui.Menu;
+import com.magasin.ui.View;
 
 public class Main {
     public static void main(String[] args) {
+        // Choix du jeu
+        Game game = Menu.chooseGame();
 
-        // Création de la vue et de l'interaction utilisateur
-
-        View view = new View();
-        InteractionUtilisateur interaction = new InteractionUtilisateur();
-
-        // Création des joueurs
-
-        Player human = new HumanPlayer("X", interaction, view);
-        Player ai = new ArtificialPlayer("O", view);
-        // On peut aussi tester :
-        // Player human2 = new HumanPlayer("O");
-        // Player ai2 = new ArtificialPlayer("X");
-
-        // Création du jeu
-
-        TicTacToe game = new TicTacToe(human, ai, view, interaction);
-
-        // Affichage du plateau initial
-
-        view.showMessage("Plateau initial :");
-        view.displayBoard(game.getBoard());
-
+        System.out.println("Début du jeu : " + game.getClass().getSimpleName());
 
         // Boucle principale du jeu
-
         while (!game.isOver()) {
-            game.playOneTurn();
+            Player current = game.getCurrentPlayer();
+            System.out.println(current.getName() + " (" + current.getSymbol() + ") joue :");
+
+            View.displayBoard(game.getBoard());  // <-- affiche le plateau avant le tour
+
+            game.playOneTurn();  // le joueur fait son coup
+
+            clearConsole();  // <-- efface l’écran pour plus de lisibilité
         }
-        // Fermeture du scanner
 
-        interaction.fermerScanner();
+        // Affiche le plateau final
+        View.displayBoard(game.getBoard());
 
-        view.showMessage("Fin du jeu !");
+        // Affiche le résultat
+        if (game.getWinner() != null) {
+            System.out.println("Le gagnant est : " + game.getWinner().getName());
+        } else {
+            System.out.println("Match nul !");
+        }
+    }
+
+    // ✅ Méthode utilitaire manquante
+    private static void clearConsole() {
+        try {
+            System.out.print("\033[H\033[2J");
+            System.out.flush();
+        } catch (Exception e) {
+            System.out.println("\n--------------------------\n");
+        }
     }
 }
-

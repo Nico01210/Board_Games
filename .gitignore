@@ -1,43 +1,85 @@
-.gradle
+# =========================
+# 🚀 Java & Build Tools
+# =========================
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.log
+
+# Gradle
+.gradle/
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
-.kotlin
+gradle-app.setting
 
-### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
+# Maven (au cas où)
+target/
+
+# Kotlin (si jamais ajouté)
+.kotlin/
+*.kotlin_module
+
+# =========================
+# 💻 IDEs
+# =========================
+
+# IntelliJ IDEA
+.idea/
 *.iws
 *.iml
 *.ipr
 out/
-!**/src/main/**/out/
-!**/src/test/**/out/
 
-### Eclipse ###
-.apt_generated
+# Eclipse
+.apt_generated/
 .classpath
 .factorypath
 .project
-.settings
+.settings/
 .springBeans
 .sts4-cache
 bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
 
-### NetBeans ###
+# NetBeans
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
 
-### VS Code ###
+# VS Code
 .vscode/
 
-### Mac OS ###
+# =========================
+# 🧪 Tests & Coverage
+# =========================
+test-output/
+coverage/
+*.exec
+*.ec
+*.lcov
+jacoco.exec
+*.hprof
+
+# =========================
+# 🧰 System files
+# =========================
 .DS_Store
+Thumbs.db
+desktop.ini
+
+# =========================
+# 🗂️ OS / Misc
+# =========================
+*.swp
+*.swo
+*.tmp
+*.bak
+*.old
+*.orig
+*.rej
