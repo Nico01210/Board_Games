@@ -1,9 +1,8 @@
-package com.magasin.Gomoku;
+package com.magasin.games.gomoku;
 
-import com.magasin.Core.*;
-import com.magasin.Gomoku.GomokuBoard;
-import com.magasin.Gomoku.GomokuCell;
-import com.magasin.ui.View;
+import com.magasin.model.game.Game;
+import com.magasin.model.game.Move;
+import com.magasin.model.player.Player;
 
 public class Gomoku extends Game {
 

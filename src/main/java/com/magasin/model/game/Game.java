@@ -1,4 +1,6 @@
-package com.magasin.Core;
+package com.magasin.model.game;
+
+import com.magasin.model.player.Player;
 
 public abstract class Game {
     protected Board board;
@@ -21,7 +23,7 @@ public abstract class Game {
         return players[currentPlayerIndex];
     }
 
-    protected void switchPlayer() {
+    public void switchPlayer() {
         currentPlayerIndex = 1 - currentPlayerIndex;
     }
 }

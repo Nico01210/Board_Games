@@ -1,7 +1,8 @@
-package com.magasin.TicTacToe;
+package com.magasin.games.tictactoe;
 
-import com.magasin.Core.*;
-import com.magasin.ui.View;
+import com.magasin.model.game.Game;
+import com.magasin.model.game.Move;
+import com.magasin.model.player.Player;
 
 public class TicTacToe extends Game {
 

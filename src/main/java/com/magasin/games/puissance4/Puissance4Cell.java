@@ -1,7 +1,6 @@
-package com.magasin.Puissance4;
+package com.magasin.games.puissance4;
 
-import com.magasin.Core.Cell;
-import com.magasin.Core.Player;
+import com.magasin.model.game.Cell;
 
 public class Puissance4Cell extends Cell {
     @Override

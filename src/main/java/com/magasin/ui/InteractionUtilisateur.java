@@ -1,7 +1,7 @@
 package com.magasin.ui;
 
-import com.magasin.Core.Board;
-import com.magasin.Core.Move;
+import com.magasin.model.game.Board;
+import com.magasin.model.game.Move;
 
 import java.util.Scanner;
 

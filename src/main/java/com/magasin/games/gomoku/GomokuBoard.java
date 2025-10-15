@@ -1,7 +1,8 @@
-package com.magasin.Gomoku;
+package com.magasin.games.gomoku;
 
-import com.magasin.Core.Board;
-import com.magasin.Core.Cell;
+import com.magasin.model.game.Board;
+import com.magasin.model.game.Cell;
+import com.magasin.model.player.Player;
 
 public class GomokuBoard extends Board {
     protected GomokuCell[][] cells;
@@ -26,7 +27,7 @@ public class GomokuBoard extends Board {
                 if (cells[i][j].isEmpty()) return false;
         return true;
     }
-    public boolean placeStone(int row, int col, com.magasin.Core.Player player) {
+    public boolean placeStone(int row, int col, Player player) {
         if (cells[row][col].isEmpty()) {
             cells[row][col].setOccupant(player);
             return true;

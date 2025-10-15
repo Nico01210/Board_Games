@@ -1,4 +1,7 @@
-package com.magasin.Core;
+package com.magasin.model.player;
+
+import com.magasin.model.game.Game;
+import com.magasin.model.game.Move;
 
 public abstract class Player {
     protected String name;

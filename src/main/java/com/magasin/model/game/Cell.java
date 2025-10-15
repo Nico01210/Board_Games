@@ -1,4 +1,6 @@
-package com.magasin.Core;
+package com.magasin.model.game;
+
+import com.magasin.model.player.Player;
 
 public abstract class Cell {
     protected Player occupant;

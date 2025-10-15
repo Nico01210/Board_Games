@@ -1,7 +1,6 @@
-package com.magasin.Gomoku;
+package com.magasin.games.gomoku;
 
-import com.magasin.Core.Cell;
-import com.magasin.Core.Player;
+import com.magasin.model.game.Cell;
 
 public class GomokuCell extends Cell {
     @Override
