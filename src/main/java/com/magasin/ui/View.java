@@ -1,7 +1,6 @@
 package com.magasin.ui;
 
-import com.magasin.Core.Board;
-import com.magasin.Core.Cell;
+import com.magasin.model.game.Board;
 
 public class View {
     public static void displayBoard(Board board) {
@@ -11,5 +10,8 @@ public class View {
             }
             System.out.println();
         }
+    }
+    public static void displayMessage(String message) {
+        System.out.println(message);
     }
 }

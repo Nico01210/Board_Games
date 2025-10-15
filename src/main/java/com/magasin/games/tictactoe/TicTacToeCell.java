@@ -1,7 +1,6 @@
-package com.magasin.TicTacToe;
+package com.magasin.games.tictactoe;
 
-import com.magasin.Core.Cell;
-import com.magasin.Core.Player;
+import com.magasin.model.game.Cell;
 
 public class TicTacToeCell extends Cell {
     @Override

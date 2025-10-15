@@ -1,7 +1,7 @@
-package com.magasin.TicTacToe;
+package com.magasin.games.tictactoe;
 
-import com.magasin.Core.Board;
-import com.magasin.Core.Cell;
+import com.magasin.model.game.Board;
+import com.magasin.model.game.Cell;
 
 public class TicTacToeBoard extends Board {
     public TicTacToeCell[][] cells;

@@ -1,7 +1,8 @@
-package com.magasin.Puissance4;
+package com.magasin.games.puissance4;
 
-import com.magasin.Core.Board;
-import com.magasin.Core.Cell;
+import com.magasin.model.game.Board;
+import com.magasin.model.game.Cell;
+import com.magasin.model.player.Player;
 
 public class Puissance4Board extends Board {
     protected Puissance4Cell[][] cells;
@@ -9,6 +10,7 @@ public class Puissance4Board extends Board {
     public Puissance4Board() {
         super(6, 7); // 6 lignes, 7 colonnes
         cells = new Puissance4Cell[rows][cols];
+
         for (int i = 0; i < rows; i++)
             for (int j = 0; j < cols; j++)
                 cells[i][j] = new Puissance4Cell();
@@ -21,13 +23,13 @@ public class Puissance4Board extends Board {
 
     @Override
     public boolean isFull() {
-        for (int j = 0; j < cols; j++) {
-            if (cells[0][j].isEmpty()) return false; // si une case du haut est libre
-        }
+        for (int j = 0; j < cols; j++)
+            if (cells[0][j].isEmpty()) return false;
         return true;
     }
 
-    public boolean dropDisc(int col, com.magasin.Core.Player player) {
+    // Dépose un jeton du joueur dans la colonne
+    public boolean dropDisc(int col, Player player) {
         for (int i = rows - 1; i >= 0; i--) {
             if (cells[i][col].isEmpty()) {
                 cells[i][col].setOccupant(player);
@@ -35,5 +37,10 @@ public class Puissance4Board extends Board {
             }
         }
         return false; // colonne pleine
+    }
+
+    // Vérifie si une colonne est jouable
+    public boolean canDrop(int col) {
+        return col >= 0 && col < cols && cells[0][col].isEmpty();
     }
 }

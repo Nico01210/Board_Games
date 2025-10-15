@@ -1,4 +1,4 @@
-package com.magasin.Core;
+package com.magasin.model.game;
 
 public class Move {
     private int row;
