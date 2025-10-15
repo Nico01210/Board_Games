@@ -4,6 +4,8 @@ import com.magasin.model.game.Board;
 import com.magasin.model.game.Cell;
 import com.magasin.model.player.Player;
 
+import java.util.Random;
+
 public class Puissance4Board extends Board {
     protected Puissance4Cell[][] cells;
 
@@ -15,7 +17,14 @@ public class Puissance4Board extends Board {
             for (int j = 0; j < cols; j++)
                 cells[i][j] = new Puissance4Cell();
     }
-
+    public int getRandomAvailableColumn() {
+        Random random = new Random();
+        int col;
+        do {
+            col = random.nextInt(cols);
+        } while (!canDrop(col));
+        return col;
+    }
     @Override
     public Cell getCell(int row, int col) {
         return cells[row][col];

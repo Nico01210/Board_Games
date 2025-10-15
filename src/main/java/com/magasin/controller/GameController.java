@@ -1,42 +1,38 @@
-
 package com.magasin.controller;
 
 import com.magasin.model.game.Game;
 import com.magasin.model.player.Player;
-import com.magasin.ui.View;
 
-    public class GameController {
+/**
+ * Contrôleur générique pour tous les jeux.
+ * Contient les méthodes communes pour gérer un tour et le déroulement d'une partie.
+ */
+public abstract class GameController {
 
-        // Démarre une partie
-        public void startGame(Game game) {
-            View.displayBoard(game.getBoard());
+    protected Game game;
 
-            while (!game.isOver()) {
-                Player current = game.getCurrentPlayer();
-                View.displayMessage(current.getName() + " (" + current.getSymbol() + ") joue :");
-
-                // Le joueur joue son tour
-                game.playOneTurn();
-
-                // Affiche le plateau après le coup
-                View.displayBoard(game.getBoard());
-
-                // Vérifie s’il y a un gagnant
-                Player winner = game.getWinner();
-                if (winner != null) {
-                    View.displayMessage("🎉 Le gagnant est : " + winner.getName());
-                    break;
-                }
-
-                // Vérifie si le plateau est plein (match nul)
-                if (game.isOver() && winner == null) {
-                    View.displayMessage("Match nul !");
-                    break;
-                }
-
-                // Change de joueur
-                game.switchPlayer();
-            }
-        }
+    public GameController(Game game) {
+        this.game = game;
     }
 
+    /**
+     * Démarre le jeu et gère le déroulement principal.
+     */
+    public abstract void startGame();
+
+    /**
+     * Gère un tour de jeu pour un joueur donné.
+     *
+     * @param player le joueur dont c'est le tour
+     */
+    public abstract void playTurn(Player player);
+
+    /**
+     * Vérifie si le jeu est terminé (victoire ou égalité)
+     *
+     * @return true si la partie est finie
+     */
+    public boolean isGameOver() {
+        return game.isOver();
+    }
+}

@@ -10,7 +10,20 @@ public class TicTacToe extends Game {
         super(p1, p2);
         board = new TicTacToeBoard();
     }
-
+    /**
+     * Exécute un tour complet pour le joueur courant.
+     * <p>
+     * Selon le jeu, cela peut inclure :
+     * - Demander le coup au joueur humain
+     * - Calculer le coup de l'IA
+     * - Mettre à jour le plateau (placer un jeton, une case, etc.)
+     * - Changer le joueur courant
+     * </p>
+     * <p>
+     * Cette méthode est abstraite et doit être implémentée par chaque jeu
+     * spécifique (TicTacToe, Puissance4, Gomoku).
+     * </p>
+     */
     @Override
     public void playOneTurn() {
         Move move = getCurrentPlayer().getMove(this);
@@ -18,11 +31,44 @@ public class TicTacToe extends Game {
         switchPlayer();
     }
 
+    /**
+     * Joue un tour de jeu pour le joueur courant.
+     * @param player joueur actif
+     * @return true si le coup est valide
+     */
+    @Override
+    public boolean makeMove(Player player, int row, int col) {
+        if (board.getCell(row, col).isEmpty()) {
+            board.getCell(row, col).setOccupant(player);
+            return true;
+        }
+        return false;
+    }
+    /**
+     * Vérifie si la partie est terminée.
+     * <p>
+     * Une partie est terminée si :
+     * - Un joueur a gagné
+     * - Le plateau est plein (égalité)
+     * </p>
+     *
+     * @return true si la partie est terminée, false sinon
+     */
     @Override
     public boolean isOver() {
         return getWinner() != null || board.isFull();
     }
 
+    /**
+     * Retourne le joueur gagnant de la partie.
+     * <p>
+     * Cette méthode doit renvoyer :
+     * - le joueur qui a remporté la partie
+     * - ou null si la partie est encore en cours ou si c'est une égalité
+     * </p>
+     *
+     * @return le joueur gagnant, ou null s'il n'y a pas de gagnant
+     */
     @Override
     public Player getWinner() {
         TicTacToeCell[][] cells = ((TicTacToeBoard) board).cells;
