@@ -1,9 +1,14 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
 group = 'com.magasin'
 version = '1.0-SNAPSHOT'
+
+application {
+    mainClass = 'com.magasin.Main.Main'
+}
 
 repositories {
     mavenCentral()

@@ -1,13 +1,13 @@
 package com.magasin.Factory;
 
-import com.magasin.model.game.Game;
-import com.magasin.model.player.Player;
-import com.magasin.games.tictactoe.TicTacToe;
-import com.magasin.games.puissance4.Puissance4;
-import com.magasin.games.gomoku.Gomoku;
+import com.magasin.Core.Game;
+import com.magasin.Core.Player;
+import com.magasin.model.tictactoe.TicTacToe;
+import com.magasin.model.puissance4.Puissance4;
+import com.magasin.model.gomoku.Gomoku;
 import com.magasin.ui.View;
-import com.magasin.model.player.HumanPlayer;
-import com.magasin.model.player.ArtificialPlayer;
+import com.magasin.Core.HumanPlayer;
+import com.magasin.Core.ArtificialPlayer;
 
 import java.util.Scanner;
 

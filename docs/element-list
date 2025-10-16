@@ -1,0 +1,9 @@
+com.magasin.controller
+com.magasin.Factory
+com.magasin.games.gomoku
+com.magasin.model.tictactoe.puissance4
+com.magasin.model.tictactoe
+com.magasin.Main
+com.magasin.model.game
+com.magasin.model.player
+com.magasin.ui

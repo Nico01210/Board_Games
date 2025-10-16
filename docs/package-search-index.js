@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.magasin.controller"},{"l":"com.magasin.Factory"},{"l":"com.magasin.games.gomoku"},{"l":"com.magasin.games.puissance4"},{"l":"com.magasin.games.tictactoe"},{"l":"com.magasin.Main"},{"l":"com.magasin.model.game"},{"l":"com.magasin.model.player"},{"l":"com.magasin.ui"}];updateSearchResults();
