@@ -3,6 +3,8 @@ package com.magasin.model.tictactoe;
 import com.magasin.Core.Board;
 import com.magasin.Core.Cell;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class TicTacToeBoard extends Board {
@@ -25,12 +27,20 @@ public class TicTacToeBoard extends Board {
      * @return un tableau {row, col} de la case disponible
      */
     public int[] getRandomAvailableCell() {
-        int row, col;
-        do {
-            row = random.nextInt(rows);
-            col = random.nextInt(cols);
-        } while (!getCell(row, col).isEmpty());
-        return new int[]{row, col};
+        List<int[]> availableCells = new ArrayList<>();
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                if (cells[i][j].isEmpty()) {
+                    availableCells.add(new int[]{i, j});
+                }
+            }
+        }
+
+        if (availableCells.isEmpty()) {
+            throw new IllegalStateException("Aucune cellule disponible sur le plateau.");
+        }
+
+        return availableCells.get(random.nextInt(availableCells.size()));
     }
 
     @Override

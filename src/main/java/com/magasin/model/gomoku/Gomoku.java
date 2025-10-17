@@ -7,8 +7,10 @@ import com.magasin.Core.Player;
 public class Gomoku extends Game {
 
     public Gomoku(Player p1, Player p2) {
-        super(p1, p2);
-        board = new GomokuBoard();
+        super(new GomokuBoard(), p1, p2);
+        if (p1 == null || p2 == null) {
+            throw new IllegalArgumentException("Les deux joueurs doivent être non null.");
+        }
     }
     /**
      * Exécute un tour complet pour le joueur courant.

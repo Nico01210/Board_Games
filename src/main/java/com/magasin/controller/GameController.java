@@ -9,7 +9,7 @@ public class GameController {
     private Game currentGame;
     private GameState state;
     private boolean gameRunning;
-    private TicTacToeGameEngine ticTacToeEngine;
+    private final TicTacToeGameEngine ticTacToeEngine;
 
     public GameController() {
         this.state = GameState.INITIALIZING;
@@ -59,6 +59,9 @@ public class GameController {
     }
 
     private void processCurrentState() {
+        if (currentGame == null) {
+            throw new IllegalStateException("Aucun jeu actif pour le contrôleur.");
+        }
         // Utilisation du pattern Visitor pour déléguer le traitement spécifique
         if (currentGame instanceof com.magasin.model.tictactoe.TicTacToe) {
             state.accept(ticTacToeEngine, (com.magasin.model.tictactoe.TicTacToe) currentGame);
@@ -113,10 +116,16 @@ public class GameController {
     }
 
     private void changeState(GameState newState) {
+        if (newState == null) {
+            throw new IllegalArgumentException("L'état du jeu ne peut pas être null.");
+        }
         this.state = newState;
     }
 
     private void playOneTurn() {
+        if (currentGame == null) {
+            throw new IllegalStateException("Aucun jeu actif pour jouer un tour.");
+        }
         Player currentPlayer = currentGame.getCurrentPlayer();
         System.out.println(currentPlayer.getName() + " (" + currentPlayer.getSymbol() + ") joue :");
         
@@ -124,13 +133,16 @@ public class GameController {
             currentGame.playOneTurn();
             // Changer de joueur après un mouvement réussi
             currentGame.switchPlayer();
-        } catch (IllegalArgumentException e) {
-            System.out.println("Mouvement invalide: " + e.getMessage());
-            changeState(GameState.WAITING_FOR_MOVE);
+        } catch (Exception e) {
+            System.out.println("❌ Erreur: " + e.getMessage());
+            // Reste dans le même tour, le joueur doit retry
         }
     }
 
     private boolean checkGameEnd() {
+        if (currentGame == null) {
+            throw new IllegalStateException("Impossible de vérifier la fin de partie sans jeu actif.");
+        }
         Player winner = currentGame.getWinner();
         
         if (winner != null) {

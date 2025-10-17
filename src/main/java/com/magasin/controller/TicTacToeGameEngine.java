@@ -10,11 +10,14 @@ import com.magasin.ui.View;
  */
 public class TicTacToeGameEngine implements TicTacToeStateVisitor {
     
-    private GameController controller;
+    private  GameController controller;
     private boolean moveProcessed = false;
     private Move lastMove;
     
     public TicTacToeGameEngine(GameController controller) {
+        if (controller == null) {
+            throw new IllegalArgumentException("Le GameController ne peut pas être null.");
+        }
         this.controller = controller;
     }
     
@@ -44,6 +47,9 @@ public class TicTacToeGameEngine implements TicTacToeStateVisitor {
         System.out.println("⏳ En attente du mouvement du joueur...");
         // Logique d'attente spécifique au TicTacToe
         Player currentPlayer = game.getCurrentPlayer();
+        if (currentPlayer == null) {
+            throw new IllegalStateException("Le joueur courant ne peut pas être null.");
+        }
         
         if (currentPlayer instanceof ArtificialPlayer) {
             System.out.println("🤖 L'IA " + currentPlayer.getName() + " réfléchit...");
@@ -131,6 +137,9 @@ public class TicTacToeGameEngine implements TicTacToeStateVisitor {
     private int countEmptyCells(TicTacToe game) {
         int count = 0;
         Board board = game.getBoard();
+        if (board == null) {
+            throw new IllegalStateException("Le plateau ne peut pas être null");
+        }
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if (board.getCell(i, j).isEmpty()) {
@@ -166,6 +175,11 @@ public class TicTacToeGameEngine implements TicTacToeStateVisitor {
         }
         
         System.out.println("=".repeat(30));
+    }
+    private void checkGameNotNull(TicTacToe game) {
+        if (game == null) {
+            throw new IllegalArgumentException("Le jeu TicTacToe ne peut pas être null");
+        }
     }
     
     // Getters/Setters pour l'état interne

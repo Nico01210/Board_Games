@@ -56,8 +56,13 @@ public class GameFactory {
         scanner.nextLine(); // consomme le retour à la ligne
 
         View.displayMessage("Entrez le nom du joueur " + numero + " :");
-        String nom = scanner.nextLine();
-
+        String nom;
+        do {
+            nom = scanner.nextLine().trim();
+            if (nom.isEmpty()) {
+                View.displayMessage("Le nom ne peut pas être vide. Veuillez réessayer :");
+            }
+        } while (nom.isEmpty());
         char symbol = (numero == 1) ? 'X' : 'O';
 
         if (type == 2) {

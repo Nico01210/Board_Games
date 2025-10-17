@@ -17,6 +17,11 @@ public class Puissance4Board extends Board {
             for (int j = 0; j < cols; j++)
                 cells[i][j] = new Puissance4Cell();
     }
+    /**
+     * Retourne une colonne aléatoire disponible.
+     * @return numéro de colonne
+     * @throws IllegalStateException si aucune colonne n’est disponible
+     */
     public int getRandomAvailableColumn() {
         Random random = new Random();
         int col;
@@ -25,8 +30,15 @@ public class Puissance4Board extends Board {
         } while (!canDrop(col));
         return col;
     }
+
+    private boolean isValidCell(int row, int col) {
+        return row >= 0 && row < rows && col >= 0 && col < cols;
+    }
     @Override
     public Cell getCell(int row, int col) {
+        if (!isValidCell(row, col)) {
+            throw new IndexOutOfBoundsException("Coordonnées hors plateau : (" + row + "," + col + ")");
+        }
         return cells[row][col];
     }
 

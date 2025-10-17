@@ -14,18 +14,20 @@ public class TicTacToe extends Game {
     // Attributs
     // --------------------------
     private TicTacToeBoard board;                 // Plateau de jeu
-    private Player player1;                       // Joueur 1
-    private Player player2;                       // Joueur 2
+    private final Player player1;                       // Joueur 1
+    private final Player player2;                       // Joueur 2
 
     // --------------------------
     // Constructeur
     // --------------------------
     public TicTacToe(Player p1, Player p2) {
-        super(p1, p2);
+        super(new TicTacToeBoard(), p1, p2);
+        if (p1 == null || p2 == null) {
+            throw new IllegalArgumentException("Les deux joueurs doivent être non null.");
+        }
         this.player1 = p1;
         this.player2 = p2;
-        this.board = new TicTacToeBoard();
-        super.board = this.board; // Assigner le board à la classe parente
+        this.board = (TicTacToeBoard) super.board; // Récupérer le board de la classe parente
     }
 
     // --------------------------
@@ -45,12 +47,27 @@ public class TicTacToe extends Game {
      */
     @Override
     public void playOneTurn() {
-        Move move = getCurrentPlayer().getMove(this); // Obtenir le coup du joueur
+        Player current = getCurrentPlayer();
+        if (current == null) {
+            throw new IllegalStateException("Le joueur courant ne peut pas être null.");
+        }
+
+        Move move = current.getMove(this);
+        if (move == null) {
+            throw new IllegalStateException("Le joueur n'a pas fourni de coup valide.");
+        }
+
         int row = move.getRow();
         int col = move.getCol();
 
+        if (!isValidCell(row, col)) {
+            throw new IndexOutOfBoundsException("Coordonnées hors plateau : (" + row + "," + col + ")");
+        }
         // Cast vers TicTacToeCell pour pouvoir setSymbol
         TicTacToeCell cell = (TicTacToeCell) board.getCell(row, col);
+        if (!cell.isEmpty()) {
+            throw new IllegalStateException("La cellule (" + row + "," + col + ") est déjà occupée.");
+        }
         char symbol = getCurrentPlayer() == player1 ? 'X' : 'O';
         cell.setSymbol(symbol);
     }
@@ -64,6 +81,8 @@ public class TicTacToe extends Game {
      */
     @Override
     public boolean makeMove(Player player, int row, int col) {
+        if (player == null) return false;
+        if (!isValidCell(row, col)) return false;
         TicTacToeCell cell = (TicTacToeCell) board.getCell(row, col);
         if (cell.isEmpty()) {
             char symbol = player == player1 ? 'X' : 'O';
@@ -72,7 +91,9 @@ public class TicTacToe extends Game {
         }
         return false;
     }
-
+    private boolean isValidCell(int row, int col) {
+        return row >= 0 && row < board.getRows() && col >= 0 && col < board.getCols();
+    }
     /**
      * Vérifie si la partie est terminée.
      * @return true si un joueur a gagné ou si le plateau est plein (égalité)

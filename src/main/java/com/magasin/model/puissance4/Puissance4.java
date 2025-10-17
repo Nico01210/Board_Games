@@ -8,8 +8,10 @@ import com.magasin.Core.Player;
 public class Puissance4 extends Game {
 
     public Puissance4(Player p1, Player p2) {
-        super(p1, p2);
-        board = new Puissance4Board();
+        super(new Puissance4Board(), p1, p2);
+        if (p1 == null || p2 == null) {
+            throw new IllegalArgumentException("Les deux joueurs doivent être non null.");
+        }
     }
     /**
      * Joue un tour de jeu pour le joueur courant.
@@ -19,9 +21,13 @@ public class Puissance4 extends Game {
     @Override
     public boolean makeMove(Player player, int row, int col) {
         // row est ignoré car on ne peut pas choisir la ligne dans Puissance4
+        if (player == null) return false;
+        if (!isValidColumn(col)) return false;
         return ((Puissance4Board) board).dropDisc(col, player);
     }
-
+    private boolean isValidColumn(int col) {
+        return col >= 0 && col < board.getCols();
+    }
     /**
      * Exécute un tour complet pour le joueur courant.
      * <p>
@@ -43,15 +49,19 @@ public class Puissance4 extends Game {
 
         do {
             Move move = getCurrentPlayer().getMove(this);
-            col = move.getCol();  // seule la colonne est utilisée
+            col = move.getCol();  // seule la colonne est utilisée (row ignoré)
 
             validMove = ((Puissance4Board) board).dropDisc(col, getCurrentPlayer());
 
-            if (!validMove && !(getCurrentPlayer() instanceof ArtificialPlayer)) {
-                System.out.println("❌ Colonne pleine ou invalide, choisis-en une autre !");
+            if (!validMove) {
+                if (getCurrentPlayer() instanceof ArtificialPlayer) {
+                    System.out.println("🤖 IA essaie une autre colonne...");
+                } else {
+                    System.out.println("❌ Colonne pleine ou invalide, choisis-en une autre !");
+                }
             }
 
-        } while (!validMove && !(getCurrentPlayer() instanceof ArtificialPlayer));
+        } while (!validMove);
     }
     /**
      * Vérifie si la partie est terminée.
