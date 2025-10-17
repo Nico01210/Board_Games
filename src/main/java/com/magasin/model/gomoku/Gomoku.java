@@ -28,7 +28,7 @@ public class Gomoku extends Game {
     public void playOneTurn() {
         Move move = getCurrentPlayer().getMove(this);
         board.getCell(move.getRow(), move.getCol()).setOccupant(getCurrentPlayer());
-        switchPlayer();
+        // switchPlayer() est appelé dans GameController.playOneTurn()
     }
 
     /**

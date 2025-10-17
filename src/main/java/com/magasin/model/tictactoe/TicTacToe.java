@@ -6,14 +6,20 @@ import com.magasin.Core.Player;
 
 /**
  * Classe représentant le jeu TicTacToe avec machine à états.
+ * Hérite de Game pour bénéficier de la logique générique des joueurs.
  */
 public class TicTacToe extends Game {
 
-    private TicTacToeBoard board;
-    private TicTacToeState currentState = TicTacToeState.START;
-    private Player player1;
-    private Player player2;
+    // --------------------------
+    // Attributs
+    // --------------------------
+    private TicTacToeBoard board;                 // Plateau de jeu
+    private Player player1;                       // Joueur 1
+    private Player player2;                       // Joueur 2
 
+    // --------------------------
+    // Constructeur
+    // --------------------------
     public TicTacToe(Player p1, Player p2) {
         super(p1, p2);
         this.player1 = p1;
@@ -22,28 +28,40 @@ public class TicTacToe extends Game {
         super.board = this.board; // Assigner le board à la classe parente
     }
 
-    // -------------------------- Getters et Setters --------------------------
-    public TicTacToeState getCurrentState() { return currentState; }
-    public void setCurrentState(TicTacToeState state) { this.currentState = state; }
+    // --------------------------
+    // Getters et Setters
+    // --------------------------
     public Player getPlayer1() { return player1; }
     public Player getPlayer2() { return player2; }
     public TicTacToeBoard getBoard() { return board; }
 
-    // -------------------------- Méthodes héritées de Game --------------------------
+    // --------------------------
+    // Méthodes héritées de Game
+    // --------------------------
 
+    /**
+     * Joue un tour complet pour le joueur courant.
+     * Ne change pas le joueur courant : c'est géré par le contrôleur.
+     */
     @Override
     public void playOneTurn() {
-        Move move = getCurrentPlayer().getMove(this);
+        Move move = getCurrentPlayer().getMove(this); // Obtenir le coup du joueur
         int row = move.getRow();
         int col = move.getCol();
 
+        // Cast vers TicTacToeCell pour pouvoir setSymbol
         TicTacToeCell cell = (TicTacToeCell) board.getCell(row, col);
         char symbol = getCurrentPlayer() == player1 ? 'X' : 'O';
         cell.setSymbol(symbol);
-
-        // Ne pas faire switchPlayer() ici - sera géré par GameController
     }
 
+    /**
+     * Tente de jouer un coup pour un joueur donné
+     * @param player Joueur actif
+     * @param row Ligne
+     * @param col Colonne
+     * @return true si le coup est valide
+     */
     @Override
     public boolean makeMove(Player player, int row, int col) {
         TicTacToeCell cell = (TicTacToeCell) board.getCell(row, col);
@@ -55,17 +73,25 @@ public class TicTacToe extends Game {
         return false;
     }
 
+    /**
+     * Vérifie si la partie est terminée.
+     * @return true si un joueur a gagné ou si le plateau est plein (égalité)
+     */
     @Override
     public boolean isOver() {
         return getWinner() != null || board.isFull();
     }
 
+    /**
+     * Détermine le joueur gagnant.
+     * @return le joueur gagnant, ou null si égalité ou partie en cours
+     */
     @Override
     public Player getWinner() {
         TicTacToeCell[][] cells = board.getCells();
         int n = board.getRows();
 
-        // Vérifie lignes et colonnes
+        // Vérifie les lignes et colonnes
         for (int i = 0; i < n; i++) {
             char rowSymbol = cells[i][0].getSymbol();
             boolean rowWin = rowSymbol != ' ';
@@ -82,7 +108,7 @@ public class TicTacToe extends Game {
             if (colWin) return colSymbol == 'X' ? player1 : player2;
         }
 
-        // Diagonales
+        // Vérifie diagonales
         char diag1 = cells[0][0].getSymbol();
         boolean diag1Win = diag1 != ' ';
         for (int i = 1; i < n && diag1Win; i++) {
@@ -90,13 +116,13 @@ public class TicTacToe extends Game {
         }
         if (diag1Win) return diag1 == 'X' ? player1 : player2;
 
-        char diag2 = cells[0][n-1].getSymbol();
+        char diag2 = cells[0][n - 1].getSymbol();
         boolean diag2Win = diag2 != ' ';
         for (int i = 1; i < n && diag2Win; i++) {
-            if (cells[i][n-1-i].getSymbol() != diag2) diag2Win = false;
+            if (cells[i][n - 1 - i].getSymbol() != diag2) diag2Win = false;
         }
         if (diag2Win) return diag2 == 'X' ? player1 : player2;
 
-        return null;
+        return null; // Aucun gagnant
     }
 }
