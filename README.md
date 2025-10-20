@@ -86,5 +86,6 @@ Ce projet est sous licence MIT.
 ## Contact
 
 Nicolas Perret
-Email: nicolas.perret@example.com
+
+Email: nicolas.perret@le-campus-numerique.fr
 GitHub: https://github.com/Nico01210/Board_Games
